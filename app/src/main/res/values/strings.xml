@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TP3</string>
+
+    <!-- Drawer -->
+    <string name="menu_drawer_home">Accueil</string>
+    <string name="menu_drawer_map">Carte</string>
+    <string name="menu_drawer_list">Liste</string>
+    <string name="menu_drawer_config">Configuration</string>
+
+    <!-- Top app bar list -->
+    <string name="menu_top_app_bar_list_config">Configuration</string>
+    <string name="menu_top_app_bar_list_delete">Suppression</string>
+
+</resources>

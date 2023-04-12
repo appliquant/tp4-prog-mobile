@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_drawer_home"
+        android:title="@string/menu_drawer_home">
+
+        <menu>
+            <item
+                android:id="@+id/menu_drawer_list"
+                android:checkable="true"
+                android:icon="@drawable/icon_list_black"
+                android:title="@string/menu_drawer_list" />
+
+            <item
+                android:id="@+id/menu_drawer_map"
+                android:checkable="true"
+                android:icon="@drawable/icon_map_black"
+                android:title="@string/menu_drawer_map" />
+        </menu>
+
+    </item>
+
+</menu>
