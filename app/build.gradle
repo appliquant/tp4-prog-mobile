@@ -17,6 +17,16 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Pour android room (migrations)
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+//                compilerArgumentProviders(
+//                        RoomSchemaArgProvider(File(projectDir, "schemas"))
+//                )
+            }
+        }
     }
 
     buildTypes {
@@ -57,11 +67,34 @@ dependencies {
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 //    id 'androidx.navigation.safeargs.kotlin'
 
+    // Android Room
+    def room_version = "2.5.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
     // Fragment
     def fragment_version = "1.5.6"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
+    // Coroutines (https://developer.android.com/topic/libraries/architecture/coroutines)
+    def coroutines_version = "2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$coroutines_version" // viewModelScope
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$coroutines_version" // LifecycleScope
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$coroutines_version" // liveData
+
+    // Retrofit (http requests)
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0' // Retrofit moshi converter
+
+
+    // Moshi (json parser)
+    implementation "com.squareup.moshi:moshi:1.14.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+
+    // De base
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'

@@ -8,15 +8,29 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.tp3.MainActivity
 import com.example.tp3.R
 import com.example.tp3.databinding.FragmentListBinding
+import com.example.tp3.db.MessageApplication
+import com.example.tp3.viewmodel.MessageViewModel
+import com.example.tp3.viewmodel.MessageViewModelFactory
+import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
+    private val messageViewMode: MessageViewModel by activityViewModels {
+        MessageViewModelFactory(
+            (activity?.application as MessageApplication).database.messageDao()
+        )
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +46,11 @@ class ListFragment : Fragment() {
 
         // Setup binding
         binding.lifecycleOwner = viewLifecycleOwner
+
+        // Récupérer les données du serveur
+        viewLifecycleOwner.lifecycleScope.launch {
+            messageViewMode.getDefaultMessages()
+        }
 
         // Click listener top app bar
         binding.topAppBar.setOnMenuItemClickListener {
