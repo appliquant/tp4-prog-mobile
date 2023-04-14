@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.ListFragment">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.tp3.viewmodel.MessageViewModel" />
+    </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,12 +35,15 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="list le fragment"
+        <!-- Liste des messages -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topAppBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/topAppBarLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

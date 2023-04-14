@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">TP3</string>
+    <string name="placeholder">placeholder</string>
+    <string name="contentdesc_image">Avatar du messager</string>
 
     <!-- Drawer -->
     <string name="menu_drawer_home">Accueil</string>

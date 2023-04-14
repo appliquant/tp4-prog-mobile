@@ -13,19 +13,24 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tp3.MainActivity
 import com.example.tp3.R
+import com.example.tp3.adapter.MessageAdapter
 import com.example.tp3.databinding.FragmentListBinding
 import com.example.tp3.db.MessageApplication
 import com.example.tp3.viewmodel.MessageViewModel
 import com.example.tp3.viewmodel.MessageViewModelFactory
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
-    private val messageViewMode: MessageViewModel by activityViewModels {
+    private lateinit var recyclerView: RecyclerView
+    private val messageViewModel: MessageViewModel by activityViewModels {
         MessageViewModelFactory(
             (activity?.application as MessageApplication).database.messageDao()
         )
@@ -46,11 +51,26 @@ class ListFragment : Fragment() {
 
         // Setup binding
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = messageViewModel
 
-        // Récupérer les données du serveur
+        // Setup recycler view
+        recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = MessageAdapter()
+        recyclerView.adapter = adapter
+
+        // Populate recycler view
         viewLifecycleOwner.lifecycleScope.launch {
-            messageViewMode.getDefaultMessages()
+            messageViewModel.getAllMessages().collect {
+                adapter.submitList(it)
+            }
         }
+
+
+//        // Récupérer les données du serveur
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            messageViewMode.getDefaultMessages()
+//        }
 
         // Click listener top app bar
         binding.topAppBar.setOnMenuItemClickListener {
