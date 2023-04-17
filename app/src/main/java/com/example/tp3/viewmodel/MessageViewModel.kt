@@ -1,6 +1,12 @@
 package com.example.tp3.viewmodel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,6 +14,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.tp3.db.Message
 import com.example.tp3.db.MessageDao
 import com.example.tp3.http.CommentsApi
+import com.example.tp3.ui.ConfigurationFragment
 import kotlinx.coroutines.launch
 
 class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
@@ -66,13 +73,48 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
                     }
                 }
 
-//                _messages.value = getAllMessages().asLiveData().value
-
-                Log.d("MessageViewModel", "getDefaultMessages: $defaultMessages")
             } catch (err: Exception) {
                 Log.e("MessageViewModel", "getDefaultMessages: $err")
             }
         }
+    }
+
+    /**
+     * Companion contenant des constantes et des fonctions globales
+     */
+    companion object {
+        /**
+         * Clé pour le DataStore
+         */
+        const val CONFIGURATION_DATA_STORE_KEY = "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY"
+
+        /**
+         * Clé pour le firstname dans le DataStore
+         */
+        const val CONFIGURATION_DATA_STORE_KEY_FIRSTNAME =
+            "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY@FIRSTNAME"
+
+        /**
+         * Clé pour le lastname dans le DataStore
+         */
+        const val CONFIGURATION_DATA_STORE_KEY_LASTNAME =
+            "COM.EXAMPLE.TP3.CONFIGURATION_DATE_STORE_KEY@LASTNAME"
+
+        /**
+         * Firstname de l'utilisateur par défaut
+         */
+        const val DEFAULT_FIRSTNAME = "Garneau"
+
+        /**
+         * Lastname de l'utilisateur par défaut
+         */
+        const val DEFAULT_LASTNAME = "Cégep"
+
+        /**
+         * DataStore global.
+         * Datastore global singleton (utilisé par tous les fragments).
+         */
+        val Context.GlobalDataStore: DataStore<Preferences> by preferencesDataStore(name = CONFIGURATION_DATA_STORE_KEY)
     }
 }
 

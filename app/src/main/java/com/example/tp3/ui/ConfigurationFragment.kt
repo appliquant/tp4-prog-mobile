@@ -15,6 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.tp3.R
 import com.example.tp3.databinding.FragmentConfigurationBinding
+import com.example.tp3.viewmodel.MessageViewModel.Companion.CONFIGURATION_DATA_STORE_KEY_FIRSTNAME
+import com.example.tp3.viewmodel.MessageViewModel.Companion.CONFIGURATION_DATA_STORE_KEY_LASTNAME
+import com.example.tp3.viewmodel.MessageViewModel.Companion.DEFAULT_FIRSTNAME
+import com.example.tp3.viewmodel.MessageViewModel.Companion.DEFAULT_LASTNAME
+import com.example.tp3.viewmodel.MessageViewModel.Companion.GlobalDataStore
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -79,13 +84,12 @@ class ConfigurationFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
 
             // Récupérer les données
-            val firstname = context?.dataStore?.data?.firstOrNull()
+            val firstname = context?.GlobalDataStore?.data?.firstOrNull()
                 ?.get(stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_FIRSTNAME))
                 ?: DEFAULT_FIRSTNAME
-            val lastname = context?.dataStore?.data?.firstOrNull()
+            val lastname = context?.GlobalDataStore?.data?.firstOrNull()
                 ?.get(stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_LASTNAME))
                 ?: DEFAULT_LASTNAME
-
             // Populer les champs
             binding.txtInpFirstname.setText(firstname)
             binding.txtInpLastname.setText(lastname)
@@ -112,7 +116,7 @@ class ConfigurationFragment : Fragment() {
 
 
         // Sauvegarder les données
-        context?.dataStore?.edit { preferences ->
+        context?.GlobalDataStore?.edit { preferences ->
             preferences[stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_FIRSTNAME)] = firstname
             preferences[stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_LASTNAME)] = lastname
         }
@@ -127,19 +131,5 @@ class ConfigurationFragment : Fragment() {
      */
     private fun navigateBack() {
         findNavController().navigateUp()
-    }
-
-    companion object {
-        const val CONFIGURATION_DATA_STORE_KEY = "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY"
-        const val CONFIGURATION_DATA_STORE_KEY_FIRSTNAME =
-            "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY@FIRSTNAME"
-        const val CONFIGURATION_DATA_STORE_KEY_LASTNAME =
-            "COM.EXAMPLE.TP3.CONFIGURATION_DATE_STORE_KEY@LASTNAME"
-
-        const val DEFAULT_FIRSTNAME = "Garneau"
-        const val DEFAULT_LASTNAME = "Cégep"
-
-        // Datastore singleton
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = CONFIGURATION_DATA_STORE_KEY)
     }
 }

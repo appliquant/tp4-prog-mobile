@@ -1,14 +1,10 @@
 package com.example.tp3.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +14,7 @@ import com.example.tp3.databinding.FragmentAddMarkerBinding
 import com.example.tp3.db.Message
 import com.example.tp3.db.MessageApplication
 import com.example.tp3.viewmodel.MessageViewModel
+import com.example.tp3.viewmodel.MessageViewModel.Companion.GlobalDataStore
 import com.example.tp3.viewmodel.MessageViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.firstOrNull
@@ -91,12 +88,12 @@ class AddMarkerFragment : Fragment() {
         // Récupérer les coordonnées
         val latitude = arguments?.getFloat(ARG_LATITUDE) ?: 0.0f
         val longitude = arguments?.getFloat(ARG_LONGITUDE) ?: 0.0f
-        val firstname = context?.dataStore?.data?.firstOrNull()
-            ?.get(stringPreferencesKey(ConfigurationFragment.CONFIGURATION_DATA_STORE_KEY_FIRSTNAME))
-            ?: ConfigurationFragment.DEFAULT_FIRSTNAME
-        val lastname = context?.dataStore?.data?.firstOrNull()
-            ?.get(stringPreferencesKey(ConfigurationFragment.CONFIGURATION_DATA_STORE_KEY_LASTNAME))
-            ?: ConfigurationFragment.DEFAULT_LASTNAME
+        val firstname = context?.GlobalDataStore?.data?.firstOrNull()
+            ?.get(stringPreferencesKey(MessageViewModel.CONFIGURATION_DATA_STORE_KEY_FIRSTNAME))
+            ?: MessageViewModel.DEFAULT_FIRSTNAME
+        val lastname = context?.GlobalDataStore?.data?.firstOrNull()
+            ?.get(stringPreferencesKey(MessageViewModel.CONFIGURATION_DATA_STORE_KEY_LASTNAME))
+            ?: MessageViewModel.DEFAULT_LASTNAME
         val picture = "https://robohash.org/$firstname/$lastname"
         val random = SecureRandom()
         val id = random.nextLong()
@@ -139,8 +136,5 @@ class AddMarkerFragment : Fragment() {
         // Arguments
         const val ARG_LATITUDE = "latitude"
         const val ARG_LONGITUDE = "longitude"
-
-        // Datastore singleton
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = ConfigurationFragment.CONFIGURATION_DATA_STORE_KEY)
     }
 }
