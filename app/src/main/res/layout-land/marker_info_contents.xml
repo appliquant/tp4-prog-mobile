@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Carte -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/marker_info_contents_card"
+        style="@style/defaultMargin"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginBottom="16dp"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Contenu -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!-- Image -->
+            <ImageView
+                android:id="@+id/marker_info_contents_avatar"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/contentdesc_image"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingTop="6dp"
+                android:paddingRight="16dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/marker_info_contents_message"
+                        style="@style/TextView.H3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder" />
+                </ScrollView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--    <LinearLayout-->
+    <!--        style="@style/defaultPadding"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:gravity="center_horizontal"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        &lt;!&ndash; Avatar &ndash;&gt;-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/marker_info_contents_avatar"-->
+    <!--            android:layout_width="64dp"-->
+    <!--            android:layout_height="64dp"-->
+    <!--            android:layout_marginTop="8dp"-->
+    <!--            android:layout_marginRight="50dp"-->
+    <!--            android:layout_marginBottom="8dp"-->
+    <!--            android:background="@color/black"-->
+    <!--            android:src="@drawable/ic_launcher_foreground" />-->
+
+    <!--        &lt;!&ndash; Message &ndash;&gt;-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/marker_info_contents_message"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:layout_marginBottom="8dp"-->
+    <!--            android:gravity="center"-->
+    <!--            android:text="@string/placeholder"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textColor="@color/black"-->
+    <!--            android:textSize="16sp" />-->
+
+    <!--    </LinearLayout>-->
+
+</layout>
