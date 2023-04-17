@@ -2,19 +2,15 @@ package com.example.tp3.viewmodel
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.tp3.db.Message
 import com.example.tp3.db.MessageDao
 import com.example.tp3.http.CommentsApi
-import com.example.tp3.ui.ConfigurationFragment
 import kotlinx.coroutines.launch
 
 class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
@@ -41,6 +37,11 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
      * Insérer tous les messages dans la base de données
      */
     suspend fun insertAllMessages(messages: List<Message>) = messageDao.insertAllMessages(messages)
+
+    /**
+     * Supprimer tous les messages
+     */
+    suspend fun deleteAllMessages() = messageDao.deleteAllMessages()
 
 
     // ============================================================================

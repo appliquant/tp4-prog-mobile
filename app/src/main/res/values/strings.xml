@@ -2,7 +2,10 @@
     <string name="app_name">TP3</string>
     <string name="placeholder">placeholder</string>
     <string name="contentdesc_image">Avatar du messager</string>
-    <string name="distance_text">Distance : %1$s km</string>'
+    <string name="distance_text">Distance : %1$s km</string>
+
+    <!-- Fragment list -->
+    <string name="fragment_list_delete">Messages supprimées avec succès. Chargement des messages du serveur…</string>
 
     <!-- Fragment configuration -->
     <string name="fragment_configuration_firstname">Prénom</string>

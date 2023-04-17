@@ -17,6 +17,7 @@ import com.example.tp3.databinding.FragmentListBinding
 import com.example.tp3.db.MessageApplication
 import com.example.tp3.viewmodel.MessageViewModel
 import com.example.tp3.viewmodel.MessageViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
@@ -38,7 +39,7 @@ class ListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = FragmentListBinding.inflate(inflater, container, false)
         _binding = fragmentBinding
         return fragmentBinding.root
@@ -106,7 +107,17 @@ class ListFragment : Fragment() {
      * Supprimer tous les messages de la base de donnée
      */
     private fun deleteMessages() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            messageViewModel.deleteAllMessages()
+        }
 
+        // Message de confirmation
+        activity?.let {
+            Snackbar.make(
+                it.findViewById(android.R.id.content),
+                getString(R.string.fragment_list_delete), Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
     /**
