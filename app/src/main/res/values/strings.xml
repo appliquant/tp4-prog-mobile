@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TP3</string>
+    <string name="app_name">Map Track</string>
     <string name="placeholder">placeholder</string>
     <string name="contentdesc_image">Avatar du messager</string>
     <string name="distance_text">Distance : %1$s km</string>
