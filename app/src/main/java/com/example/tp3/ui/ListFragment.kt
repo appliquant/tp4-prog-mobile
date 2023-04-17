@@ -4,13 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,11 +17,12 @@ import com.example.tp3.databinding.FragmentListBinding
 import com.example.tp3.db.MessageApplication
 import com.example.tp3.viewmodel.MessageViewModel
 import com.example.tp3.viewmodel.MessageViewModelFactory
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
-
+    // ============================================================================
+    // Propriétés
+    // ============================================================================
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
@@ -36,7 +32,9 @@ class ListFragment : Fragment() {
         )
     }
 
-
+    // ============================================================================
+    // Fonctions de cycle de vie
+    // ============================================================================
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +49,6 @@ class ListFragment : Fragment() {
 
         // Setup binding
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = messageViewModel
 
         // Setup recycler view
         recyclerView = binding.recyclerView
@@ -94,6 +91,10 @@ class ListFragment : Fragment() {
         _binding = null
     }
 
+    // ============================================================================
+    // Fonctions
+    // ============================================================================
+
     /**
      * Navigation vers le fragment de configuration
      */
@@ -102,7 +103,7 @@ class ListFragment : Fragment() {
     }
 
     /**
-     * Supprimer les méssages de la base de donnée
+     * Supprimer tous les messages de la base de donnée
      */
     private fun deleteMessages() {
 

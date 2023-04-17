@@ -66,6 +66,9 @@ android {
 }
 
 dependencies {
+    // Preferences DataStore (au lieu de sharedpreferences)
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
     // Dependency to include Maps SDK for Android
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.maps.android:maps-ktx:3.0.0' // Maps SDK for Android KTX Library
@@ -75,6 +78,8 @@ dependencies {
     // Librairie pour simplifier les permissions
     implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     // Navigation
     def nav_version = "2.5.3"

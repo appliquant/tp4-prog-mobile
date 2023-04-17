@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Top bar -->
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/topAppBarLayout"
             android:layout_width="match_parent"
@@ -25,13 +26,61 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Content -->
+        <LinearLayout
+            style="@style/defaultMargin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="fragment configuration"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topAppBarLayout" />
+            app:layout_constraintTop_toBottomOf="@id/topAppBarLayout">
+
+            <!-- Prénom -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/fragment_configuration_firstname"
+                android:maxWidth="488dp"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtInpFirstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Nom -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/fragment_configuration_lastname"
+                android:maxWidth="488dp"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtInpLastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Bouton sauvegarder -->
+            <Button
+                android:id="@+id/btnSave"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/fragment_configuration_save"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

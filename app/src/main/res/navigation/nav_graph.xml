@@ -9,7 +9,13 @@
         android:id="@+id/mapFragment"
         android:name="com.example.tp3.ui.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_addMarkerFragment"
+            app:destination="@id/addMarkerFragment"
+            app:popUpTo="@id/mapFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/listFragment"
@@ -21,4 +27,13 @@
         android:name="com.example.tp3.ui.ConfigurationFragment"
         android:label="fragment_configuration"
         tools:layout="@layout/fragment_configuration" />
+    <fragment
+        android:id="@+id/addMarkerFragment"
+        android:name="com.example.tp3.ui.AddMarkerFragment"
+        android:label="fragment_add_marker"
+        tools:layout="@layout/fragment_add_marker" >
+        <action
+            android:id="@+id/action_addMarkerFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
 </navigation>
