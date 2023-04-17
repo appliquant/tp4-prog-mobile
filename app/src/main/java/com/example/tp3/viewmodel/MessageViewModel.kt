@@ -1,6 +1,7 @@
 package com.example.tp3.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,12 +17,12 @@ import kotlinx.coroutines.launch
 
 class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
 
-//    private var _messages = MutableLiveData<List<Message>>()
-//
-//    /**
-//     * Messages dans la base de données
-//     */
-//    val messages: MutableLiveData<List<Message>> = _messages
+    private val _messages = MutableLiveData<List<Message>>()
+
+    /**
+     * Messages dans la base de données
+     */
+//    val messages: LiveData<List<Message>> = _messages
 
     /**
      * Récupérer le count des messages
@@ -46,11 +47,10 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
 
     init {
         getDefaultMessages()
-//        _messages = getAllMessages().asLiveData()
     }
 
     /**
-     * Récupérer les messages par défaut du serveur
+     * Récupérer les messages par défaut du serveur et initialiser la valeur de `messages`
      */
     fun getDefaultMessages() {
         viewModelScope.launch {
@@ -66,6 +66,8 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
                         insertAllMessages(defaultMessages)
                     }
                 }
+
+//                _messages.value = getAllMessages().asLiveData().value
 
                 Log.d("MessageViewModel", "getDefaultMessages: $defaultMessages")
             } catch (err: Exception) {

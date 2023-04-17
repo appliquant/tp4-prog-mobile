@@ -59,18 +59,12 @@ class ListFragment : Fragment() {
         val adapter = MessageAdapter()
         recyclerView.adapter = adapter
 
-        // Populate recycler view
+        // Remplir le recycler view
         viewLifecycleOwner.lifecycleScope.launch {
             messageViewModel.getAllMessages().collect {
                 adapter.submitList(it)
             }
         }
-
-
-//        // Récupérer les données du serveur
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            messageViewMode.getDefaultMessages()
-//        }
 
         // Click listener top app bar
         binding.topAppBar.setOnMenuItemClickListener {

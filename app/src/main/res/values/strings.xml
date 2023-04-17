@@ -2,6 +2,7 @@
     <string name="app_name">TP3</string>
     <string name="placeholder">placeholder</string>
     <string name="contentdesc_image">Avatar du messager</string>
+    <string name="distance_text">Distance : %1$s km</string>
 
     <!-- Drawer -->
     <string name="menu_drawer_home">Accueil</string>
@@ -12,5 +13,8 @@
     <!-- Top app bar list -->
     <string name="menu_top_app_bar_list_config">Configuration</string>
     <string name="menu_top_app_bar_list_delete">Suppression</string>
+
+    <!-- Permissions -->
+    <string name="permission_location">Permission de localisation est nécessaire pour cette action</string>
 
 </resources>
