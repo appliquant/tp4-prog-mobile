@@ -80,10 +80,10 @@ class ConfigurationFragment : Fragment() {
 
             // Récupérer les données
             val firstname = context?.dataStore?.data?.firstOrNull()
-                ?.get(stringPreferencesKey(CONFIGURATION_DATE_STORE_KEY_FIRSTNAME))
+                ?.get(stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_FIRSTNAME))
                 ?: DEFAULT_FIRSTNAME
             val lastname = context?.dataStore?.data?.firstOrNull()
-                ?.get(stringPreferencesKey(CONFIGURATION_DATE_STORE_KEY_LASTNAME))
+                ?.get(stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_LASTNAME))
                 ?: DEFAULT_LASTNAME
 
             // Populer les champs
@@ -113,8 +113,8 @@ class ConfigurationFragment : Fragment() {
 
         // Sauvegarder les données
         context?.dataStore?.edit { preferences ->
-            preferences[stringPreferencesKey(CONFIGURATION_DATE_STORE_KEY_FIRSTNAME)] = firstname
-            preferences[stringPreferencesKey(CONFIGURATION_DATE_STORE_KEY_LASTNAME)] = lastname
+            preferences[stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_FIRSTNAME)] = firstname
+            preferences[stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_LASTNAME)] = lastname
         }
 
 
@@ -130,17 +130,16 @@ class ConfigurationFragment : Fragment() {
     }
 
     companion object {
-        const val CONFIGURATION_DATE_STORE_KEY = "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY"
-        const val CONFIGURATION_DATE_STORE_KEY_FIRSTNAME =
+        const val CONFIGURATION_DATA_STORE_KEY = "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY"
+        const val CONFIGURATION_DATA_STORE_KEY_FIRSTNAME =
             "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY@FIRSTNAME"
-        const val CONFIGURATION_DATE_STORE_KEY_LASTNAME =
+        const val CONFIGURATION_DATA_STORE_KEY_LASTNAME =
             "COM.EXAMPLE.TP3.CONFIGURATION_DATE_STORE_KEY@LASTNAME"
 
         const val DEFAULT_FIRSTNAME = "Garneau"
         const val DEFAULT_LASTNAME = "Cégep"
 
         // Datastore singleton
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = CONFIGURATION_DATE_STORE_KEY)
-
+        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = CONFIGURATION_DATA_STORE_KEY)
     }
 }

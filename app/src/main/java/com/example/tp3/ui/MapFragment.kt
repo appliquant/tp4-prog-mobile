@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -264,8 +265,12 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
      * Ajouter un marker sur la carte.
      */
     private fun addMarker() {
-        // Navigation vers le fragment d'ajout de message
-        view?.findNavController()?.navigate(R.id.action_mapFragment_to_addMarkerFragment)
+        // Navigation vers le fragment d'ajout de message (.toFloat() car on ne peut pas passer un double dans avec navgraph
+        val bundle = bundleOf(
+            AddMarkerFragment.ARG_LATITUDE to googleMap.cameraPosition.target.latitude.toFloat(),
+            AddMarkerFragment.ARG_LONGITUDE to googleMap.cameraPosition.target.longitude.toFloat()
+        )
+        view?.findNavController()?.navigate(R.id.action_mapFragment_to_addMarkerFragment, bundle)
     }
 
     // ============================================================================

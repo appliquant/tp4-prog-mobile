@@ -56,6 +56,7 @@ android {
             google()
         }
         dependencies {
+            // Navigation safeargs
             def nav_version = "2.5.3"
             classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
@@ -86,7 +87,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-//    id 'androidx.navigation.safeargs.kotlin'
 
     // Android Room
     def room_version = "2.5.0"

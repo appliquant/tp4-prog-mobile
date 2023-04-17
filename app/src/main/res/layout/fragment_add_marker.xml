@@ -48,8 +48,20 @@
                     android:id="@+id/txtInpName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="10" />
+                    android:lines="5"
+                    android:maxLength="50" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Bouton sauvegarder -->
+            <Button
+                android:id="@+id/btnAddMarker"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/fragment_add_marker_add"
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

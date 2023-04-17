@@ -10,9 +10,11 @@
     <string name="fragment_configuration_save">Sauvegarder</string>
     <string name="fragment_configuration_error">Vous devez remplir tous les champs</string>
 
-    <!-- Fragment add maker text input -->
+    <!-- Fragment add maker -->
     <string name="fragment_add_marker_message">Message</string>
-
+    <string name="fragment_add_marker_add">Ajouter</string>
+    <string name="fragment_add_marker_success">Marqueur ajouté</string>
+    <string name="fragment_add_marker_error">Vous devez remplir tous les champs</string>
 
 
     <!-- Drawer -->
