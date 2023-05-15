@@ -36,7 +36,8 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
     /**
      * Insérer tous les messages dans la base de données
      */
-    suspend fun insertAllMessages(messages: List<Message>) = messageDao.insertAllMessages(messages)
+    private suspend fun insertAllMessages(messages: List<Message>) =
+        messageDao.insertAllMessages(messages)
 
     /**
      * Supprimer tous les messages
@@ -57,9 +58,10 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
     // ============================================================================
 
     /**
-     * Récupérer les messages par défaut du serveur
+     * Récupérer les messages par défaut du serveur et les sauvegarder dans la base
+     * de donnée locale
      */
-    fun getDefaultMessages() {
+    private fun getDefaultMessages() {
         viewModelScope.launch {
 
             try {
@@ -87,7 +89,8 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
         /**
          * Clé pour le DataStore
          */
-        const val CONFIGURATION_DATA_STORE_KEY = "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY"
+        private const val CONFIGURATION_DATA_STORE_KEY =
+            "COM.EXAMPLE.TP3@CONFIGURATION_DATE_STORE_KEY"
 
         /**
          * Clé pour le firstname dans le DataStore

@@ -67,15 +67,18 @@ class ListFragment : Fragment() {
         // Click listener top app bar
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
+                // Menu configuration
                 R.id.menu_top_app_bar_list_config -> {
                     navigateToConfigFragment()
                     true
                 }
 
+                // Menu supression
                 R.id.menu_top_app_bar_list_delete -> {
                     deleteMessages()
                     true
                 }
+
                 else -> true
             }
 

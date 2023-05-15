@@ -13,7 +13,6 @@ import java.security.SecureRandom
 
 private const val API_URL = "https://kalanso.top"
 
-//private val moshiConfig = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 private val moshiConfig = Moshi.Builder().add(MessageFromApiToMessageForDb()).build()
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(

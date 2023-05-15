@@ -75,6 +75,7 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
         // Setup google map
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.fragment_google_map) as? SupportMapFragment
+
         // Attendre que la carte soit chargée
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             googleMap = mapFragment?.awaitMap()!!
@@ -101,6 +102,7 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
 
         // Click listener top app bar
         binding.topAppBar.setNavigationOnClickListener {
+            // Ouvrir drawer sur click
             openDrawer()
         }
     }
@@ -114,9 +116,7 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
     // EasyPermissions
     // ============================================================================
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -128,8 +128,7 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
         // Vérifier si l'utilisateur a refusé la permission et a coché "NE JAMAIS DEMANDER À NOUVEAU"
         // Afficher un message pour l'inviter à activer la permission dans les paramètres de l'application
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            SettingsDialog.Builder(requireContext())
-                .title(getString(R.string.permission_location))
+            SettingsDialog.Builder(requireContext()).title(getString(R.string.permission_location))
                 .build().show()
         }
     }
@@ -200,11 +199,14 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
      */
     @SuppressLint("MissingPermission")
     private fun loadMarkersToMap() {
-        // Remplir la map des points longitude/latitude des messages dans la base de données
         viewLifecycleOwner.lifecycleScope.launch {
-
+            // Récupérer tous les messages
             messageViewModel.getAllMessages().collect { messages ->
+
+                // Remplir la map des points longitude/latitude des messages dans la base de données
                 messages.forEach { message ->
+
+                    // Ajouter marker sur la carte
                     val marker = googleMap.addMarker {
                         title(message.message)
                         position(LatLng(message.latitude, message.longitude))
@@ -222,10 +224,8 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
 
                 // Centrer la carte sur le premier message
                 fusedLocationClient.getCurrentLocation(
-                    Priority.PRIORITY_BALANCED_POWER_ACCURACY,
-                    null
-                )
-                    .addOnSuccessListener { userLocation ->
+                    Priority.PRIORITY_BALANCED_POWER_ACCURACY, null
+                ).addOnSuccessListener { userLocation ->
                         val latLng = LatLng(userLocation.latitude, userLocation.longitude)
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
                     }
@@ -254,7 +254,8 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
             activity?.let {
                 Snackbar.make(
                     it.findViewById(android.R.id.content),
-                    getString(R.string.distance_text, distance), Snackbar.LENGTH_LONG
+                    getString(R.string.distance_text, distance),
+                    Snackbar.LENGTH_LONG
                 ).show()
             }
 

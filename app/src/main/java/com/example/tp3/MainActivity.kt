@@ -1,8 +1,7 @@
 package com.example.tp3
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.tp3.databinding.ActivityMainBinding
 
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
      * Ouvre le drawer
      * (appelé depuis les fragments)
      */
-    public fun openDrawer() {
+    fun openDrawer() {
         binding.drawerLayout.openDrawer(binding.navigationView, true)
     }
 }
