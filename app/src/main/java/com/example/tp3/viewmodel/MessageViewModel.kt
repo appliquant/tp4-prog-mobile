@@ -16,6 +16,13 @@ import kotlinx.coroutines.launch
 class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
 
     // ============================================================================
+    // Variables
+    // ============================================================================
+
+
+
+
+    // ============================================================================
     // Fonctions DAO
     // ============================================================================
     /**
@@ -43,6 +50,7 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
      * Supprimer tous les messages
      */
     suspend fun deleteAllMessages() = messageDao.deleteAllMessages()
+
 
 
     // ============================================================================

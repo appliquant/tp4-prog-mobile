@@ -4,6 +4,17 @@
     <string name="contentdesc_image">Avatar du messager</string>
     <string name="distance_text">Distance : %1$s km</string>
 
+    <string name="email_required">Le courriel doit être valide</string>
+    <string name="password_required">Le mot de passe doit avoir au moins 6 caractères</string>
+
+    <!-- Fragment Auth -->
+    <string name="fragment_auth_title">Connexion</string>
+    <string name="fragment_auth_email">Courriel</string>
+    <string name="fragment_auth_password">Mot de passe</string>
+    <string name="fragment_auth_login_button">Connexion</string>
+    <string name="fragment_auth_failed">Courriel et/ou mot de passe invalide</string>
+
+
     <!-- Fragment list -->
     <string name="fragment_list_delete">Messages supprimées avec succès. Chargement des messages du serveur…</string>
 
@@ -33,5 +44,7 @@
 
     <!-- Permissions -->
     <string name="permission_location">Permission de localisation est nécessaire pour cette action</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

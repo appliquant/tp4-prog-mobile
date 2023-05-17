@@ -4,6 +4,9 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 
+    // Firebase
+    id 'com.google.gms.google-services' // Google ser
+
     // Google Maps
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
@@ -67,6 +70,10 @@ android {
 }
 
 dependencies {
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+
     // Preferences DataStore (au lieu de sharedpreferences)
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
