@@ -110,7 +110,7 @@ class AddMarkerFragment : Fragment() {
 
         // Ajouter le message
         viewLifecycleOwner.lifecycleScope.launch {
-            messageViewModel.insertMessage(messageObj)
+              messageViewModel.addMessageToFirestore(messageObj)
         }
 
         // Message de confirmation

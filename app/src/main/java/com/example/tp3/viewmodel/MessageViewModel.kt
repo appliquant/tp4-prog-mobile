@@ -71,43 +71,19 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
     // ============================================================================
     // Fonctions firebase
     // ============================================================================
+
     /**
-     * Récupérer les messages de firestore
-     * @return Liste des messages
+     * Ajouter un message à firestore
      */
-//    private fun _getMessagesFromFirestore(): List<Message> {
-//        val fireStoreDb = Firebase.firestore
-//        // Convertir les documents en objets Message (cast)
-//        var messages = mutableListOf<Message>()
-//        val sucessCallback : (QuerySnapshot) -> Unit = { result ->
-//            for (document in result) {
-//                val m = Message(
-//                    document.data["id"] as Long,
-//                    document.data["firstname"] as String,
-//                    document.data["lastname"] as String,
-//                    document.data["message"] as String,
-//                    document.data["picture"] as String,
-//                    document.data["latitude"] as Double,
-//                    document.data["longitude"] as Double,
-//                )
-//
-//                messages.add(m)
-//            }
-//
-//            return messages
-//        }
-//
-//        fireStoreDb
-//            .collection("messages")
-//            .get()
-//            .addOnSuccessListener(sucessCallback)
-//            .addOnFailureListener {
-//                Log.d("MessageViewModel", "Erreur firestore: ", it)
-//            }
-//
-//        return sucessCallback
-//    }
-//
+    fun addMessageToFirestore(message: Message) {
+        try {
+            val fireStoreDb = Firebase.firestore
+            val collectionRef = fireStoreDb.collection("messages")
+            collectionRef.add(message)
+        } catch (err: Exception) {
+            Log.e("MessageViewModel", "addMessageToFirebase err: $err")
+        }
+    }
 
     // ============================================================================
     // Constructeur
@@ -132,7 +108,7 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
             val collectionRef = fireStoreDb.collection("messages")
             collectionRef.addSnapshotListener { snapshot, error ->
                 if (error != null) {
-                    Log.w("MessageViewModel", "Listen failed.", error)
+                    Log.w("MessageViewModel", "Listen failed : ", error)
                     return@addSnapshotListener
                 }
 
@@ -161,13 +137,12 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
                     }
 
                 } else {
-                    Log.d("MessageViewModel", "Current data: null")
-
+                    Log.d("MessageViewModel", "Data : null")
                 }
             }
 
         } catch (err: Exception) {
-            Log.e("MessageViewModel", "getDefaultMessages: $err")
+            Log.e("MessageViewModel", "getDefaultMessages err : $err")
         }
     }
 
