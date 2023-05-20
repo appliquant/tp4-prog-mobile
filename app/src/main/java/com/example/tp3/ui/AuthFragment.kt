@@ -58,8 +58,6 @@ class AuthFragment : Fragment() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
             messageViewModel.setUser(currentUser)
-
-            Log.d("AuthFragment", "Utilisateur authentifié : ${currentUser.email}")
             navigateToMessages()
         }
 

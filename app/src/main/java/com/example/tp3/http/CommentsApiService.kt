@@ -65,7 +65,7 @@ class MessageFromApiToMessageForDb {
     }
 
     /**
-     * Converti le Message pour la base de données en schéma de l'API (Message -> MessageFromApi)
+     * Converti le Message de la base de données en schéma de l'API (Message -> MessageFromApi)
      */
     @ToJson
     fun toJson(data: Message): MessageFromApi {

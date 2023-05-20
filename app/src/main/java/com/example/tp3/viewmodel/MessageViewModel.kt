@@ -5,15 +5,15 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.tp3.db.Message
 import com.example.tp3.db.MessageDao
-import com.example.tp3.http.CommentsApi
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
@@ -27,7 +27,6 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
      * Utilisateur courant
      */
     val currentUser: MutableLiveData<FirebaseUser> = _currentUser
-
 
 
     // ============================================================================
@@ -74,8 +73,8 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
     // Constructeur
     // ============================================================================
     init {
-        // Récupérer les messages par défauts
-        getDefaultMessages()
+        // Récupérer les messages de firestore
+        getMessagesFromFirestore()
     }
 
     // ============================================================================
@@ -83,27 +82,49 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
     // ============================================================================
 
     /**
-     * Récupérer les messages par défaut du serveur et les sauvegarder dans la base
-     * de donnée locale
+     * Récupérer les messages par défaut de firestore
+     * et les sauvegarder dans la base de donnée locale
      */
-    private fun getDefaultMessages() {
-        viewModelScope.launch {
+    private fun getMessagesFromFirestore() {
 
-            try {
-                // Récupérer les messages par défaut du serveur
-                val defaultMessages = CommentsApi.retrofitService.getMessages()
+        try {
+            val fireStoreDb = Firebase.firestore
 
-                // Vérifier si la base de données est vide & insérer les messages par défaut
-                val nbMessages = getCountMessages()
-                nbMessages.collect {
-                    if (it <= 0) {
-                        insertAllMessages(defaultMessages)
+            fireStoreDb
+                .collection("messages")
+                .get()
+                .addOnSuccessListener { result ->
+
+                    // Convertir les documents en objets Message (cast)
+                    val messages = mutableListOf<Message>()
+
+                    for (document in result) {
+                        val m = Message(
+                            document.data["id"] as Long,
+                            document.data["firstname"] as String,
+                            document.data["lastname"] as String,
+                            document.data["message"] as String,
+                            document.data["picture"] as String,
+                            document.data["latitude"] as Double,
+                            document.data["longitude"] as Double,
+                        )
+
+                        messages.add(m)
                     }
+
+                    // Insérer les messages dans la base de données
+                    viewModelScope.launch {
+                        insertAllMessages(messages)
+                    }
+
                 }
 
-            } catch (err: Exception) {
-                Log.e("MessageViewModel", "getDefaultMessages: $err")
-            }
+                .addOnFailureListener {
+                    Log.d("MessageViewModel", "Erreur firestore: ", it)
+                }
+
+        } catch (err: Exception) {
+            Log.e("MessageViewModel", "getDefaultMessages: $err")
         }
     }
 

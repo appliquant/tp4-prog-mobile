@@ -44,11 +44,4 @@ data class Message(
      * Longitude
      */
     @ColumnInfo(name = "longitude") val longitude: Double,
-) {
-//    /**
-//     * Id de l'endroit, auto-généré
-//     * Non placé dans le constructeur pour éviter de le passer en paramètre
-//     */
-//    @PrimaryKey(autoGenerate = true)
-//    var id: Int? = null
-}
+)
