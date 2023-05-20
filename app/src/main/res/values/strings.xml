@@ -3,6 +3,8 @@
     <string name="placeholder">placeholder</string>
     <string name="contentdesc_image">Avatar du messager</string>
     <string name="distance_text">Distance : %1$s km</string>
+    <string name="message_received_sms_added">Nouveau message ajouté (sms)</string>
+    <string name="message_received_sms_failed">Message non ajouté (sms)</string>
 
     <string name="email_required">Le courriel doit être valide</string>
     <string name="password_required">Le mot de passe doit avoir au moins 6 caractères</string>
@@ -13,7 +15,6 @@
     <string name="fragment_auth_password">Mot de passe</string>
     <string name="fragment_auth_login_button">Connexion</string>
     <string name="fragment_auth_failed">Courriel et/ou mot de passe invalide</string>
-
 
     <!-- Fragment list -->
     <string name="fragment_list_delete">Messages supprimées avec succès. Chargement des messages du serveur…</string>
@@ -29,7 +30,6 @@
     <string name="fragment_add_marker_add">Ajouter</string>
     <string name="fragment_add_marker_success">Marqueur ajouté</string>
     <string name="fragment_add_marker_error">Vous devez remplir tous les champs</string>
-
 
     <!-- Drawer -->
     <string name="menu_drawer_home">Accueil</string>

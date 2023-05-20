@@ -75,7 +75,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'      // Firebase authentication
     implementation 'com.google.firebase:firebase-firestore-ktx' // Cloud Firestore
 
-
     // Preferences DataStore (au lieu de sharedpreferences)
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
