@@ -1,6 +1,7 @@
 package com.example.tp3.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.example.tp3.R
 import com.example.tp3.databinding.FragmentAuthBinding
 import com.example.tp3.db.MessageApplication
@@ -55,10 +57,13 @@ class AuthFragment : Fragment() {
         // Vérifier si l'utilisateur est authentifié
         val currentUser = auth.currentUser
         if (currentUser != null) {
-//            messageViewModel.setIsAuth(true)
-//            messageViewModel.setUserId(currentUser.uid)
+            messageViewModel.setUser(currentUser)
+
+            Log.d("AuthFragment", "Utilisateur authentifié : ${currentUser.email}")
+            navigateToMessages()
         }
 
+        // Clique sur le bouton de connexion
         binding.btnLogin.setOnClickListener {
             validations()
         }
@@ -104,9 +109,11 @@ class AuthFragment : Fragment() {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
 
-                    // Sauvegarder l'utilisateur dans le view model
-//                    messageViewModel.setIsAuth(true)
-//                    messageViewModel.setUserId(user!!.uid)
+                    if (user != null) {
+                        messageViewModel.setUser(user)
+                        navigateToMessages()
+                    }
+
                 } else {
                     // Message d'erreur
                     Toast.makeText(
@@ -117,6 +124,13 @@ class AuthFragment : Fragment() {
                 }
             }
 
+    }
+
+    /**
+     * Naviguer vers la liste des messages
+     */
+    private fun navigateToMessages() {
+        binding.root.findNavController().navigate(R.id.listFragment)
     }
 
     override fun onDestroy() {

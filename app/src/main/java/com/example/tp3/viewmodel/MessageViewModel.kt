@@ -5,12 +5,15 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.tp3.db.Message
 import com.example.tp3.db.MessageDao
 import com.example.tp3.http.CommentsApi
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 
 class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
@@ -18,7 +21,12 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
     // ============================================================================
     // Variables
     // ============================================================================
+    private val _currentUser = MutableLiveData<FirebaseUser>()
 
+    /**
+     * Utilisateur courant
+     */
+    val currentUser: MutableLiveData<FirebaseUser> = _currentUser
 
 
 
@@ -51,6 +59,15 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
      */
     suspend fun deleteAllMessages() = messageDao.deleteAllMessages()
 
+    // ============================================================================
+    // Fonctions authentification
+    // ============================================================================
+    /**
+     * Sauvegarder l'utilisateur dans la base de données
+     */
+    fun setUser(user: FirebaseUser) {
+        _currentUser.value = user
+    }
 
 
     // ============================================================================
