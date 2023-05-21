@@ -5,77 +5,44 @@ import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.tp3.db.Message
 import com.example.tp3.db.MessageDao
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
-class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
-
-    // ============================================================================
-    // Variables
-    // ============================================================================
-    private val _currentUser = MutableLiveData<FirebaseUser>()
-
+class MessageViewModel(
     /**
-     * Utilisateur courant
+     * DAO pour les messages
      */
-    val currentUser: MutableLiveData<FirebaseUser> = _currentUser
-
+    private val messageDao: MessageDao
+) : ViewModel() {
 
     // ============================================================================
     // Fonctions DAO
     // ============================================================================
-    /**
-     * Récupérer le count des messages
-     */
-    private fun getCountMessages() = messageDao.getCount()
-
     /**
      * Récupérer tous les messages de la base de données
      */
     fun getAllMessages() = messageDao.getAllMessages()
 
     /**
-     * Insérer un message dans la base de données
-     */
-    suspend fun insertMessage(message: Message) = messageDao.insertMessage(message)
-
-    /**
-     * Insérer tous les messages dans la base de données
+     * Insérer tous les messages dans la base de données locale
      */
     private suspend fun insertAllMessages(messages: List<Message>) =
         messageDao.insertAllMessages(messages)
-
-    /**
-     * Supprimer tous les messages
-     */
-    suspend fun deleteAllMessages() = messageDao.deleteAllMessages()
-
-    // ============================================================================
-    // Fonctions authentification
-    // ============================================================================
-    /**
-     * Sauvegarder l'utilisateur dans la base de données
-     */
-    fun setUser(user: FirebaseUser) {
-        _currentUser.value = user
-    }
 
     // ============================================================================
     // Fonctions firebase
     // ============================================================================
 
     /**
-     * Ajouter un message à firestore
+     * Insérer un message dans firestore
      */
-    fun addMessageToFirestore(message: Message) {
+    fun insertMessageFirestore(message: Message) {
         try {
             val fireStoreDb = Firebase.firestore
             val collectionRef = fireStoreDb.collection("messages")
@@ -89,8 +56,7 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
     // Constructeur
     // ============================================================================
     init {
-        // Récupérer les messages de firestore
-        getMessagesFromFirestoreRealtime()
+        getMessagesFirestore()
     }
 
     // ============================================================================
@@ -101,20 +67,20 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
      * Récupérer les messages de firestore en temps réel
      * et les sauvegarder dans la base de donnée locale
      */
-    private fun getMessagesFromFirestoreRealtime() {
+    private fun getMessagesFirestore() {
 
         try {
             val fireStoreDb = Firebase.firestore
             val collectionRef = fireStoreDb.collection("messages")
+
             collectionRef.addSnapshotListener { snapshot, error ->
                 if (error != null) {
-                    Log.w("MessageViewModel", "Listen failed : ", error)
                     return@addSnapshotListener
                 }
 
                 if (snapshot != null && !snapshot.isEmpty) {
 
-                    // Convertir les documents en objets Message (cast)
+                    // Convertir les documents en objets Message
                     val messages = mutableListOf<Message>()
 
                     for (document in snapshot) {
@@ -127,9 +93,9 @@ class MessageViewModel(private val messageDao: MessageDao) : ViewModel() {
                             document.data["latitude"] as Double,
                             document.data["longitude"] as Double,
                         )
-
                         messages.add(m)
                     }
+
 
                     // Insérer les messages dans la base de données
                     viewModelScope.launch {
@@ -195,6 +161,7 @@ class MessageViewModelFactory(private val _messageDao: MessageDao) : ViewModelPr
      */
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MessageViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
             return MessageViewModel(_messageDao) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

@@ -21,9 +21,6 @@
     <string name="fragment_auth_login_button">Connexion</string>
     <string name="fragment_auth_failed">Courriel et/ou mot de passe invalide</string>
 
-    <!-- Fragment list -->
-    <string name="fragment_list_delete">Messages supprimées avec succès. Chargement des messages du serveur…</string>
-
     <!-- Fragment configuration -->
     <string name="fragment_configuration_firstname">Prénom</string>
     <string name="fragment_configuration_lastname">Nom</string>

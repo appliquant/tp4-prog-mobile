@@ -9,11 +9,4 @@
         android:icon="@drawable/icon_settings_white"
         app:showAsAction="collapseActionView" />
 
-    <item
-        android:id="@+id/menu_top_app_bar_list_delete"
-        android:contentDescription="@string/menu_top_app_bar_list_delete"
-        android:icon="@drawable/icon_delete_white"
-        android:title="@string/menu_top_app_bar_list_delete"
-        app:showAsAction="collapseActionView" />
-
 </menu>

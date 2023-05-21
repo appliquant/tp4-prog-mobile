@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/fragment_auth_password"
                 android:maxWidth="488dp"
-                app:endIconMode="clear_text">
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtInpPassword"

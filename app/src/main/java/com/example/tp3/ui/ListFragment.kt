@@ -1,7 +1,6 @@
 package com.example.tp3.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.example.tp3.databinding.FragmentListBinding
 import com.example.tp3.db.MessageApplication
 import com.example.tp3.viewmodel.MessageViewModel
 import com.example.tp3.viewmodel.MessageViewModelFactory
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
@@ -65,19 +63,12 @@ class ListFragment : Fragment() {
             }
         }
 
-        Log.d("ListFragment", "onViewCreated: ${messageViewModel.currentUser.value}")
         // Click listener top app bar
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 // Menu configuration
                 R.id.menu_top_app_bar_list_config -> {
                     navigateToConfigFragment()
-                    true
-                }
-
-                // Menu supression
-                R.id.menu_top_app_bar_list_delete -> {
-                    deleteMessages()
                     true
                 }
 
@@ -106,23 +97,6 @@ class ListFragment : Fragment() {
      */
     private fun navigateToConfigFragment() {
         binding.root.findNavController().navigate(R.id.configurationFragment)
-    }
-
-    /**
-     * Supprimer tous les messages de la base de donnée
-     */
-    private fun deleteMessages() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            messageViewModel.deleteAllMessages()
-        }
-
-        // Message de confirmation
-        activity?.let {
-            Snackbar.make(
-                it.findViewById(android.R.id.content),
-                getString(R.string.fragment_list_delete), Snackbar.LENGTH_LONG
-            ).show()
-        }
     }
 
     /**

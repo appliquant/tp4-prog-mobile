@@ -5,14 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MessageDao {
-    @Query("SELECT COUNT(*) FROM messages")
-    fun getCount(): Flow<Int>
-
     @Query("SELECT * FROM messages")
     fun getAllMessages(): Flow<List<Message>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMessage(message: Message)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllMessages(messages: List<Message>)

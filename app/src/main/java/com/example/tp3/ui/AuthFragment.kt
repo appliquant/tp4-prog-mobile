@@ -1,20 +1,15 @@
 package com.example.tp3.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.tp3.R
 import com.example.tp3.databinding.FragmentAuthBinding
-import com.example.tp3.db.MessageApplication
-import com.example.tp3.viewmodel.MessageViewModel
-import com.example.tp3.viewmodel.MessageViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -25,12 +20,6 @@ class AuthFragment : Fragment() {
     // ============================================================================
     private var _binding: FragmentAuthBinding? = null
     private val binding get() = _binding!!
-    private val messageViewModel: MessageViewModel by activityViewModels {
-        MessageViewModelFactory(
-            (activity?.application as MessageApplication).database.messageDao()
-        )
-    }
-
     private lateinit var auth: FirebaseAuth
 
     // ============================================================================
@@ -57,7 +46,6 @@ class AuthFragment : Fragment() {
         // Vérifier si l'utilisateur est authentifié
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            messageViewModel.setUser(currentUser)
             navigateToMessages()
         }
 
@@ -108,7 +96,6 @@ class AuthFragment : Fragment() {
                     val user = auth.currentUser
 
                     if (user != null) {
-                        messageViewModel.setUser(user)
                         navigateToMessages()
                     }
 

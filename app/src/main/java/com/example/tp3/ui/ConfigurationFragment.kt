@@ -79,8 +79,6 @@ class ConfigurationFragment : Fragment() {
         binding.btnPause.setOnClickListener {
             mediaPlayer.pause()
         }
-
-
     }
 
     override fun onDestroy() {
@@ -128,13 +126,11 @@ class ConfigurationFragment : Fragment() {
             return
         }
 
-
         // Sauvegarder les données
         context?.GlobalDataStore?.edit { preferences ->
             preferences[stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_FIRSTNAME)] = firstname
             preferences[stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_LASTNAME)] = lastname
         }
-
 
         // Retour à la liste
         navigateBack()
