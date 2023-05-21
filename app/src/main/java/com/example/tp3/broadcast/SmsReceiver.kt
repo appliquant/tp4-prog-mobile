@@ -5,16 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.provider.Telephony.Sms.Intents.getMessagesFromIntent
 import android.util.Log
-import android.widget.Toast
-import com.example.tp3.R
 import com.example.tp3.db.Message
+import com.example.tp3.notifications.SmsNotificationService
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.security.SecureRandom
 
+/**
+ * Classe qui reçoit les SMS
+ */
 class SmsReceiver : BroadcastReceiver() {
-
-
     override fun onReceive(context: Context?, intent: Intent?) {
         when (intent?.action) {
             "android.provider.Telephony.SMS_RECEIVED" -> {
@@ -39,44 +39,51 @@ class SmsReceiver : BroadcastReceiver() {
                     val latitude = message[3].toDouble()
                     val longitude = message[4].toDouble()
 
+                    // Message
+                    val newMessage = Message(
+                        id, firstname, lastname,
+                        msgContent, picture, latitude, longitude
+                    )
+
                     // Enregistrer le message dans firestore
                     saveMessageFirestore(
-                        Message(
-                            id,
-                            firstname,
-                            lastname,
-                            msgContent,
-                            picture,
-                            latitude,
-                            longitude
-                        ), context
+                        newMessage, callbackNotificationSuccess = {
+                            // Envoyer la notification de succès
+                            val service = SmsNotificationService(context!!)
+                            service.showNotificationSuccess()
+                        },
+
+                        callbackNotificationError = {
+                            // Envoyer la notification d'erreur
+                            val service = SmsNotificationService(context!!)
+                            service.showNotificationError()
+                        }
                     )
 
                 }
             }
         }
+
     }
 
     /**
      * Enregistrer le message dans firestore
      */
-    private fun saveMessageFirestore(message: Message, context: Context?) {
+    private fun saveMessageFirestore(
+        message: Message,
+        callbackNotificationSuccess: () -> Unit,
+        callbackNotificationError: () -> Unit
+    ) {
         val fireStoreDb = Firebase.firestore
         val collectionRef = fireStoreDb.collection("messages")
         collectionRef.add(message)
             .addOnSuccessListener {
-                Toast.makeText(
-                    context,
-                    context?.getString(R.string.message_received_sms_added),
-                    Toast.LENGTH_SHORT
-                ).show()
+                // Envoyer la notification de succès
+                callbackNotificationSuccess()
             }
             .addOnFailureListener {
-                Toast.makeText(
-                    context,
-                    context?.getString(R.string.message_received_sms_failed),
-                    Toast.LENGTH_SHORT
-                ).show()
+                // Envoyer la notification d'erreur
+                callbackNotificationError()
             }
     }
 }
