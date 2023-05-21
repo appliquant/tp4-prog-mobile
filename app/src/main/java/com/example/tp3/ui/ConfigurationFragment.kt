@@ -1,5 +1,6 @@
 package com.example.tp3.ui
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,8 @@ class ConfigurationFragment : Fragment() {
     private var _binding: FragmentConfigurationBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var mediaPlayer: MediaPlayer
+
     // ============================================================================
     // Fonctions cycle de vie
     // ============================================================================
@@ -44,6 +47,9 @@ class ConfigurationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Media player
+        mediaPlayer = MediaPlayer.create(context, R.raw.sound2)
+
         // Setup binding
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -57,17 +63,30 @@ class ConfigurationFragment : Fragment() {
             navigateBack()
         }
 
-        // Click listener bouton
+        // Click listener bouton sauvegarder
         binding.btnSave.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 saveUser()
             }
         }
+
+        // Click listener bouton lecture
+        binding.btnPlay.setOnClickListener {
+            mediaPlayer.start()
+        }
+
+        // Click listener bouton pause
+        binding.btnPause.setOnClickListener {
+            mediaPlayer.pause()
+        }
+
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        mediaPlayer.release()
     }
 
     // ============================================================================
@@ -78,7 +97,6 @@ class ConfigurationFragment : Fragment() {
      */
     private suspend fun populateFields() {
         viewLifecycleOwner.lifecycleScope.launch {
-
             // Récupérer les données
             val firstname = context?.GlobalDataStore?.data?.firstOrNull()
                 ?.get(stringPreferencesKey(CONFIGURATION_DATA_STORE_KEY_FIRSTNAME))

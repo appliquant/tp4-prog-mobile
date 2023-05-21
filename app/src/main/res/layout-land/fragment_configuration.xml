@@ -28,10 +28,11 @@
 
         <!-- Content -->
         <LinearLayout
+            android:id="@+id/main_content"
             style="@style/defaultMargin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topAppBarLayout">
@@ -78,6 +79,50 @@
                 android:text="@string/fragment_configuration_save"
                 android:textColor="@color/white" />
 
+
+        </LinearLayout>
+
+        <!-- Music player -->
+        <LinearLayout
+            style="@style/defaultMargin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/media_player_title"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <!-- Bouton sauvegarder -->
+            <Button
+                android:id="@+id/btnPlay"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:minWidth="120dp"
+                android:text="@string/play_button"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnPause"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:minWidth="120dp"
+                android:text="@string/pause_button"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
