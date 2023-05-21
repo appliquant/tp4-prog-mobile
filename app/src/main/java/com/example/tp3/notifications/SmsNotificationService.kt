@@ -1,16 +1,13 @@
 package com.example.tp3.notifications
 
 import android.annotation.SuppressLint
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.navigation.NavDeepLinkBuilder
 import com.example.tp3.MainActivity
 import com.example.tp3.R
-import com.example.tp3.ui.ListFragment
 
 /**
  * Service de notification pour les SMS
@@ -45,6 +42,7 @@ class SmsNotificationService(
             // Fermer la notification quand on clique dessus
             .setAutoCancel(true)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
 
         with(NotificationManagerCompat.from(context)) {
             notify(SMS_NOTIFICATION_ID_SUCCESS, builder.build())
@@ -75,6 +73,7 @@ class SmsNotificationService(
             // Fermer la notification quand on clique dessus
             .setAutoCancel(true)
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
 
         with(NotificationManagerCompat.from(context)) {
             notify(SMS_NOTIFICATION_ID_ERROR, builder.build())

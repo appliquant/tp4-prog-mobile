@@ -5,7 +5,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import com.example.tp3.R
 
 /**
@@ -20,7 +19,7 @@ class NotificationChannels : Application() {
     /**
      * Créer le channel de notification pour les SMS
      */
-    private fun createSmsNotificationChannel() {
+    fun createSmsNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 SmsNotificationService.SMS_CHANNEL_ID,

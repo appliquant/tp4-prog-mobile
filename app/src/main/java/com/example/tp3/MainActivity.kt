@@ -13,6 +13,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Permissions
+        requestPermissions(
+            arrayOf(
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.READ_SMS,
+                android.Manifest.permission.RECEIVE_SMS,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ),
+            1200112
+        )
+
         // Drawer
         val navigationView = binding.navigationView
 
