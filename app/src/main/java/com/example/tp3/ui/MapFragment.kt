@@ -19,7 +19,6 @@ import com.example.tp3.databinding.FragmentMapBinding
 import com.example.tp3.db.Message
 import com.example.tp3.db.MessageApplication
 import com.example.tp3.googlemap.MarkerInfoWindowAdapter
-import com.example.tp3.notifications.NotificationChannels
 import com.example.tp3.viewmodel.MessageViewModel
 import com.example.tp3.viewmodel.MessageViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -57,8 +56,6 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
         )
     }
 
-    private val notificationChannels = NotificationChannels()
-
     // ============================================================================
     // Fonctions de cycle de vie
     // ============================================================================
@@ -74,8 +71,6 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        notificationChannels.createSmsNotificationChannel()
 
         // Setup google map
         val mapFragment =
@@ -231,9 +226,9 @@ class MapFragment : Fragment(), EasyPermissions.PermissionCallbacks,
                 fusedLocationClient.getCurrentLocation(
                     Priority.PRIORITY_BALANCED_POWER_ACCURACY, null
                 ).addOnSuccessListener { userLocation ->
-                        val latLng = LatLng(userLocation.latitude, userLocation.longitude)
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
-                    }
+                    val latLng = LatLng(userLocation.latitude, userLocation.longitude)
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+                }
 
                 // Callback
                 onMapReady(googleMap)

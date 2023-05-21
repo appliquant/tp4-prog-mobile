@@ -1,7 +1,6 @@
 package com.example.tp3.db
 
 import android.app.Application
-import com.example.tp3.notifications.NotificationChannels
 
 /**
  * Classe application applée dès le lancement de l'application
@@ -14,9 +13,6 @@ class MessageApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        // Initialiser service de notification pour les SMS
-        NotificationChannels()
     }
 
 }

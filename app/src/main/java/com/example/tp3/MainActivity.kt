@@ -1,9 +1,13 @@
 package com.example.tp3
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.tp3.databinding.ActivityMainBinding
+import com.example.tp3.notifications.SmsNotificationService
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -45,6 +49,19 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        // Channel notifications
+        val desc = getString(R.string.notification_channel_description)
+
+        val channel = NotificationChannel(
+            SmsNotificationService.SMS_CHANNEL_ID,
+            desc,
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        channel.description = desc
+
+        val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     /**

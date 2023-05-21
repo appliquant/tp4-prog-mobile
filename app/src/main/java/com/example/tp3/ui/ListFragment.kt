@@ -19,8 +19,6 @@ import com.example.tp3.db.MessageApplication
 import com.example.tp3.viewmodel.MessageViewModel
 import com.example.tp3.viewmodel.MessageViewModelFactory
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
@@ -35,11 +33,6 @@ class ListFragment : Fragment() {
             (activity?.application as MessageApplication).database.messageDao()
         )
     }
-
-//    /**
-//     * Base de donnée Firestore
-//     */
-//    private var fireStoreDb = Firebase.firestore
 
     // ============================================================================
     // Fonctions de cycle de vie
